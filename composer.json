@@ -47,7 +47,7 @@
         "dtisgodsson/elocrypt": "*"
     },
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.0.0",
         "laravel/framework": "5.5.*",
         "paragonie/random_compat": "^1.1|^2.0"
     },
