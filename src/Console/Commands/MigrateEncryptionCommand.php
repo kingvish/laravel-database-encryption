@@ -5,7 +5,7 @@
  * @author      Austin Heap <me@austinheap.com>
  * @version     v0.1.0
  */
-declare(strict_types=1);
+
 
 namespace AustinHeap\Database\Encryption\Console\Commands;
 
@@ -90,7 +90,7 @@ class MigrateEncryptionCommand extends \Illuminate\Console\Command
      *
      * @return string
      */
-    protected function getEncryptionPrefix(): string
+    protected function getEncryptionPrefix()
     {
         return DatabaseEncryption::getPrefix();
     }
@@ -102,7 +102,7 @@ class MigrateEncryptionCommand extends \Illuminate\Console\Command
      *
      * @return bool
      */
-    protected function isEncrypted($value): bool
+    protected function isEncrypted($value)
     {
         return strpos((string) $value, $this->getEncryptionPrefix()) === 0;
     }
@@ -115,7 +115,7 @@ class MigrateEncryptionCommand extends \Illuminate\Console\Command
      *
      * @return null|string
      */
-    public function encryptedAttribute($value, $cipher): ?string
+    public function encryptedAttribute($value, $cipher)
     {
         return $this->getEncryptionPrefix().$cipher->encrypt($value);
     }
@@ -128,7 +128,7 @@ class MigrateEncryptionCommand extends \Illuminate\Console\Command
      *
      * @return null|string
      */
-    public function decryptedAttribute($value, $cipher): ?string
+    public function decryptedAttribute($value, $cipher)
     {
         return $cipher->decrypt(str_replace($this->getEncryptionPrefix(), '', $value));
     }
@@ -310,7 +310,7 @@ class MigrateEncryptionCommand extends \Illuminate\Console\Command
         self::setStats($stats);
     }
 
-    private function writeln(string $line): void
+    private function writeln($line)
     {
         $output = $this->getOutput();
 
@@ -319,7 +319,7 @@ class MigrateEncryptionCommand extends \Illuminate\Console\Command
         }
     }
 
-    private static function buildStatsString(array $stats, string $stat = null, bool $stylize = true): string
+    private static function buildStatsString(array $stats, $stat = null, $stylize = true)
     {
         $string = '';
 
@@ -337,18 +337,18 @@ class MigrateEncryptionCommand extends \Illuminate\Console\Command
         return empty($string) ? '' : substr($string, 0, -2);
     }
 
-    private static function stylizeStatsString(string $string, string $style, bool $stylize = true): string
+    private static function stylizeStatsString($string, $style, $stylize = true)
     {
         return ! $stylize ? $string : '<'.$style.'>'.$string.'</'.(strpos($style,
                                                                                    '<fg') === 0 ? '' : $style).'>';
     }
 
-    private static function setStats(array $stats): void
+    private static function setStats(array $stats)
     {
         self::$stats = $stats;
     }
 
-    public static function getStats(): array
+    public static function getStats()
     {
         throw_if(is_null(self::$stats), RuntimeException::class, 'Stats do not exist; command has not been executed.');
 

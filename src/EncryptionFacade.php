@@ -5,7 +5,7 @@
  * @author      Austin Heap <me@austinheap.com>
  * @version     v0.1.0
  */
-declare(strict_types=1);
+
 
 namespace AustinHeap\Database\Encryption;
 

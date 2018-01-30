@@ -5,7 +5,7 @@
  * @author      Austin Heap <me@austinheap.com>
  * @version     v0.1.0
  */
-declare(strict_types=1);
+
 
 namespace AustinHeap\Database\Encryption;
 
@@ -26,7 +26,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @var string
      */
-    public const VERSION = '0.1.0';
+     const VERSION = '0.1.0';
 
     /**
      * Private enable flag cache.
@@ -83,7 +83,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return EncryptionHelper
      */
-    public function reset(): self
+    public function reset()
     {
         $this->enabledCache =
         $this->versioningCache =
@@ -100,7 +100,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return string
      */
-    public function getVersion(): string
+    public function getVersion()
     {
         throw_if(! defined('LARAVEL_DATABASE_ENCRYPTION_VERSION'), RuntimeException::class,
                  'The provider did not boot.');
@@ -113,7 +113,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return bool
      */
-    public function setEnabled(?bool $value = null): self
+    public function setEnabled($value = null)
     {
         $this->enabledCache = $value;
 
@@ -125,7 +125,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return bool
      */
-    public function isEnabled(): bool
+    public function isEnabled()
     {
         if (is_null($this->enabledCache)) {
             $enabled = Config('database-encryption.enabled', null);
@@ -140,7 +140,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return bool
      */
-    public function setDisabled(?bool $value = null): self
+    public function setDisabled($value = null)
     {
         return $this->setEnabled(is_bool($value) ? ! $value : null);
     }
@@ -150,7 +150,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return bool
      */
-    public function isDisabled(): bool
+    public function isDisabled()
     {
         return ! $this->isEnabled();
     }
@@ -160,7 +160,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return null|bool
      */
-    public function setVersioning(?bool $value = null): self
+    public function setVersioning($value = null)
     {
         $this->reset();
         $this->versioningCache = $value;
@@ -173,7 +173,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return bool
      */
-    public function isVersioning(): bool
+    public function isVersioning()
     {
         if (is_null($this->versioningCache)) {
             $versioning = Config('database-encryption.versioning', null);
@@ -188,7 +188,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return null|bool
      */
-    public function setVersionless(?bool $value = null): self
+    public function setVersionless($value = null)
     {
         return $this->setVersioning(is_bool($value) ? ! $value : null);
     }
@@ -198,7 +198,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return bool
      */
-    public function isVersionless(): bool
+    public function isVersionless()
     {
         return ! $this->isVersioning();
     }
@@ -208,7 +208,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return array
      */
-    public function getVersionParts(?int $padding = null): array
+    public function getVersionParts($padding = null)
     {
         if (! is_array($this->versionPartsCache)) {
             $this->versionPartsCache = [];
@@ -241,7 +241,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return string
      */
-    public function getVersionForPrefix(int $padding = 2, string $glue = '-'): string
+    public function getVersionForPrefix($padding = 2, $glue = '-')
     {
         return 'VERSION-'.implode($glue, $this->getVersionParts($padding));
     }
@@ -251,7 +251,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return EncryptionHelper
      */
-    public function setHeaderPrefix(?string $value = null): self
+    public function setHeaderPrefix($value = null)
     {
         throw_if(is_string($value) && strlen(trim($value)) == 0, RuntimeException::class,
                  'Cannot use empty string as header prefix.');
@@ -266,7 +266,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return string
      */
-    public function getHeaderPrefix(): string
+    public function getHeaderPrefix()
     {
         if (is_null($this->headerPrefixCache)) {
             $characters = $this->getControlCharacters();
@@ -285,7 +285,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return string
      */
-    public function buildHeader($object = null): string
+    public function buildHeader($object = null)
     {
         $characters = $this->getControlCharacters();
 
@@ -313,7 +313,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return EncryptionHelper
      */
-    public function setPrefix(?string $value = null): self
+    public function setPrefix($value = null)
     {
         throw_if(is_string($value) && strlen(trim($value)) == 0, RuntimeException::class,
                  'Cannot use empty string as prefix.');
@@ -330,7 +330,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return string
      */
-    public function getPrefix(): string
+    public function getPrefix()
     {
         if (is_null($this->prefixCache)) {
             $prefix = Config::get('database-encryption.prefix', null);
@@ -349,7 +349,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return array
      */
-    public function getControlCharacters(?string $type = null): array
+    public function getControlCharacters($type = null)
     {
         $defaults = self::getControlCharactersDefault();
         $characters = self::getControlCharactersDefault();
@@ -369,7 +369,7 @@ class EncryptionHelper extends EncryptionDefaults
      *
      * @return EncryptionHelper
      */
-    public static function getInstance(): self
+    public static function getInstance()
     {
         return EncryptionFacade::getInstance();
     }

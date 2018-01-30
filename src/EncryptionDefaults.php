@@ -5,7 +5,7 @@
  * @author      Austin Heap <me@austinheap.com>
  * @version     v0.1.0
  */
-declare(strict_types=1);
+
 
 namespace AustinHeap\Database\Encryption;
 
@@ -25,28 +25,28 @@ abstract class EncryptionDefaults
      *
      * @var bool
      */
-    public const DEFAULT_ENABLED = false;
+    const DEFAULT_ENABLED = false;
 
     /**
      * Shared default versioning flag.
      *
      * @var bool
      */
-    public const DEFAULT_VERSIONING = true;
+    const DEFAULT_VERSIONING = true;
 
     /**
      * Shared default prefix.
      *
      * @var string
      */
-    public const DEFAULT_PREFIX = '__LARAVEL-DATABASE-ENCRYPTED-%VERSION%__';
+    const DEFAULT_PREFIX = '__LARAVEL-DATABASE-ENCRYPTED-%VERSION%__';
 
     /**
      * Shared default control characters.
      *
      * @var array
      */
-    public const DEFAULT_CONTROL_CHARACTERS = [
+    const DEFAULT_CONTROL_CHARACTERS = [
         'header' => [
             'start' => 1,
             'stop'  => 4,
@@ -67,7 +67,7 @@ abstract class EncryptionDefaults
      *
      * @var array
      */
-    public const DEFAULT_HELPERS = [
+    const DEFAULT_HELPERS = [
         'database_encryption',
         'db_encryption',
         'dbencryption',
@@ -96,7 +96,7 @@ abstract class EncryptionDefaults
     /**
      * @return bool
      */
-    public static function isEnabledDefault(): bool
+    public static function isEnabledDefault()
     {
         return static::DEFAULT_ENABLED;
     }
@@ -104,7 +104,7 @@ abstract class EncryptionDefaults
     /**
      * @return bool
      */
-    public static function isDisabledDefault(): bool
+    public static function isDisabledDefault()
     {
         return ! static::isEnabledDefault();
     }
@@ -112,7 +112,7 @@ abstract class EncryptionDefaults
     /**
      * @return bool
      */
-    public static function isVersioningDefault(): bool
+    public static function isVersioningDefault()
     {
         return static::DEFAULT_VERSIONING;
     }
@@ -120,7 +120,7 @@ abstract class EncryptionDefaults
     /**
      * @return bool
      */
-    public static function isVersionlessDefault(): bool
+    public static function isVersionlessDefault()
     {
         return ! static::isVersioningDefault();
     }
@@ -128,7 +128,7 @@ abstract class EncryptionDefaults
     /**
      * @return string
      */
-    public static function getPrefixDefault(): string
+    public static function getPrefixDefault()
     {
         return static::DEFAULT_PREFIX;
     }
@@ -136,7 +136,7 @@ abstract class EncryptionDefaults
     /**
      * @return array
      */
-    public static function getControlCharactersDefault(?string $type = null, bool $raw = false): array
+    public static function getControlCharactersDefault($type = null, $raw = false)
     {
         if (is_null(self::$defaultControlCharactersCache)) {
             $characters = [];
@@ -167,7 +167,7 @@ abstract class EncryptionDefaults
     /**
      * @return array
      */
-    public static function getHelpersDefault(): array
+    public static function getHelpersDefault()
     {
         return static::DEFAULT_HELPERS;
     }
@@ -177,7 +177,7 @@ abstract class EncryptionDefaults
      *
      * @return array
      */
-    public static function buildCharacter($character, bool $default = false): array
+    public static function buildCharacter($character, $default = false)
     {
         throw_if(! is_int($character) && ! is_string($character), RuntimeException::class,
                  'Cannot build character array from $character type: "'.gettype($character).'".');

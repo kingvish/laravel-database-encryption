@@ -5,7 +5,7 @@
  * @author      Austin Heap <me@austinheap.com>
  * @version     v0.1.0
  */
-declare(strict_types=1);
+
 
 namespace AustinHeap\Database\Encryption\Traits;
 
@@ -95,7 +95,7 @@ trait HasEncryptedAttributes
      *
      * @return self
      */
-    protected function setLastEncryptionException($exception, ?string $function = null): self
+    protected function setLastEncryptionException($exception, $function = null)
     {
         Log::debug('Ignored exception "'.get_class($exception).'" in function "'.(is_null($function) ? '(unknown)' : $function).'": '.$exception->getMessage());
 
@@ -109,7 +109,7 @@ trait HasEncryptedAttributes
      *
      * @return string
      */
-    protected function getEncryptionPrefix(): string
+    protected function getEncryptionPrefix()
     {
         return DatabaseEncryption::getHeaderPrefix();
     }
@@ -121,7 +121,7 @@ trait HasEncryptedAttributes
      *
      * @return bool
      */
-    protected function shouldEncrypt($key): bool
+    protected function shouldEncrypt($key)
     {
         $encrypt = isset($this->encrypted) ? $this->encrypted : [];
 
@@ -135,7 +135,7 @@ trait HasEncryptedAttributes
      *
      * @return bool
      */
-    protected function isEncrypted($value): bool
+    protected function isEncrypted($value)
     {
         return strpos((string) $value, $this->getEncryptionPrefix()) === 0;
     }
@@ -150,7 +150,7 @@ trait HasEncryptedAttributes
      *
      * @return null|string
      */
-    public function encryptedAttribute($value): ?string
+    public function encryptedAttribute($value)
     {
         return DatabaseEncryption::buildHeader($value).Crypt::encrypt($value);
     }
@@ -165,7 +165,7 @@ trait HasEncryptedAttributes
      *
      * @return null|string
      */
-    public function decryptedAttribute($value): ?string
+    public function decryptedAttribute($value)
     {
         $characters = DatabaseEncryption::getControlCharacters('header');
         $value = substr($value, strpos($value, $characters['stop']['string']));
@@ -180,7 +180,7 @@ trait HasEncryptedAttributes
      *
      * @return self
      */
-    protected function doEncryptAttribute($key): self
+    protected function doEncryptAttribute($key)
     {
         if ($this->shouldEncrypt($key) && ! $this->isEncrypted($this->attributes[$key])) {
             try {

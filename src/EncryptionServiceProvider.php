@@ -5,7 +5,7 @@
  * @author      Austin Heap <me@austinheap.com>
  * @version     v0.1.0
  */
-declare(strict_types=1);
+
 
 namespace AustinHeap\Database\Encryption;
 
@@ -34,7 +34,7 @@ class EncryptionServiceProvider extends \Illuminate\Support\ServiceProvider
      *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         $this->publishes([__DIR__.'/../config/database-encryption.php' => config_path('database-encryption.php')]);
 
@@ -53,7 +53,7 @@ class EncryptionServiceProvider extends \Illuminate\Support\ServiceProvider
      *
      * @return void
      */
-    public function register(): void
+    public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/database-encryption.php', 'database-encryption');
 
